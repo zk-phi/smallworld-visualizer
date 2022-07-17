@@ -1,4 +1,4 @@
-import { createSignal, createMemo, createEffect, JSX, For, Show } from "solid-js";
+import { createSignal, createMemo, JSX, For, Show } from "solid-js";
 import { toHiragana } from "wanakana";
 
 import css from "./index.module.css";

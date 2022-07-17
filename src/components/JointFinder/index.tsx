@@ -1,4 +1,4 @@
-import { createSignal, createMemo, createEffect, JSX, For, Show } from "solid-js";
+import { createSignal, createMemo, For, Show } from "solid-js";
 
 import css from "./index.module.css";
 import { Button } from "../Button";

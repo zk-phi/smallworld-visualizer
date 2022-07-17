@@ -1,5 +1,4 @@
-import { createSignal, createMemo, createEffect, JSX, For } from "solid-js";
-import { toHiragana } from "wanakana";
+import { createSignal, createEffect } from "solid-js";
 import Graphology from "graphology";
 import ForceLayout from "graphology-layout-force/worker";
 import Sigma from "sigma";
