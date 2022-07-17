@@ -1,0 +1,10 @@
+.header {
+  padding-left: 8px;
+  border-bottom: 1px solid;
+  font-size: 16px;
+  line-height: 32px;
+}
+
+.title {
+  font-weight: bold;
+}
