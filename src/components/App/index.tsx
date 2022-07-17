@@ -20,7 +20,7 @@ export const App = () => {
     const layout = new ForceLayout(graph, {
       settings: {
         /* リンクの引き default: 0.0005 */
-        attraction: 0.0001,
+        attraction: 0.001,
         /* ノードの反発 default: 0.1 */
         repulsion: 10,
         /* 中央に集まろうとする力 default: 0.0001 */
