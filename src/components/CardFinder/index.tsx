@@ -22,7 +22,7 @@ export const CardFinder = (props: Props) => {
 
   const filteredCards = createMemo(() => {
     const text = searchText();
-    const kana = toHiragana(text);
+    const kana = toHiragana(text, { convertLongVowelMark: false });
 
     if (text === "") return [];
     return cards.filter(card => card[0].includes(kana) || card[1].includes(text));
