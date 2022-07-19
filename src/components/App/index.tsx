@@ -2,11 +2,25 @@ import { createSignal, createEffect } from "solid-js";
 import Graphology from "graphology";
 import ForceLayout from "graphology-layout-force/worker";
 import Sigma from "sigma";
+import ColorConvert from "color-convert";
 
 import css from "./index.module.css";
 import { Header } from "../Header";
 import { JointFinder } from "../JointFinder";
 import { CardFinder } from "../CardFinder";
+
+let relationToColor: Record<string, string> = {};
+let lastHue = 0;
+const getColorForRelation = (relation: string) => {
+  if (relationToColor[relation]) {
+    return relationToColor[relation];
+  } else {
+    const color = `#${ColorConvert.hsl.hex([lastHue, 100, 50])}`;
+    lastHue += 77
+    relationToColor[relation] = color;
+    return color;
+  }
+};
 
 export const App = () => {
   const [selectedCards, setSelectedCards] = createSignal<string[][]>([]);
@@ -42,17 +56,20 @@ export const App = () => {
         x: Math.random(),
         y: Math.random(),
         label: card[1],
-        color: "#ea0",
       });
       cards.forEach(existingCard => {
         const prefixes = ["", "", "", "レベル", "", "ATK", "DEF"];
         const similarity = existingCard.map((_, ix) => (
-          existingCard[ix] === card[ix] && (prefixes[ix] + card[ix])
+          existingCard[ix] === card[ix] ? prefixes[ix] + card[ix] : ""
         )).filter(x => (
           x
         ));
         if (similarity.length === 1) {
-          graph.addEdge(existingCard[1], card[1], { label: similarity[0], size: 5 });
+          graph.addEdge(existingCard[1], card[1], {
+            label: similarity[0],
+            size: 5,
+            color: getColorForRelation(similarity[0]),
+          });
         }
       });
     } catch (e) {}

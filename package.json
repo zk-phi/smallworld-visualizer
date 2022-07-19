@@ -5,10 +5,12 @@
     "start": "vite preview"
   },
   "dependencies": {
+    "@types/color-convert": "^2.0.0",
     "@types/css-modules": "^1.0.2",
     "@types/events": "^3.0.0",
     "@types/node": "^18.0.5",
     "@types/wanakana": "^4.0.3",
+    "color-convert": "^1.9.3",
     "graphology": "^0.24.1",
     "graphology-layout-force": "^0.2.4",
     "sigma": "^2.3.1",
