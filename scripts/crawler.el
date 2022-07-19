@@ -6,9 +6,10 @@
 
 (defun simplify-ruby (ruby)
   (with-temp-buffer
-    (save-excursion (insert ruby))
-    (replace-regexp "[　・－-]\\|&.*;" "")
-    (japanese-hiragana (buffer-string))))
+    (save-excursion (insert (japanese-hiragana ruby)))
+    (save-excursion (replace-regexp "[　・－-]\\|&.*;" ""))
+    (save-excursion (replace-string "う゛" "ゔ"))
+    (buffer-string)))
 
 (defconst num-pages 62)
 
