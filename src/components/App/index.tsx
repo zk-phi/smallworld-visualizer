@@ -10,13 +10,13 @@ import { JointFinder } from "../JointFinder";
 import { CardFinder } from "../CardFinder";
 
 let relationToColor: Record<string, string> = {};
-let lastHue = 0;
+let lastHue = Math.floor(Math.random() * 360);
 const getColorForRelation = (relation: string) => {
   if (relationToColor[relation]) {
     return relationToColor[relation];
   } else {
     const color = `#${ColorConvert.hsl.hex([lastHue, 100, 50])}`;
-    lastHue += 77
+    lastHue += 49;
     relationToColor[relation] = color;
     return color;
   }
