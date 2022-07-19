@@ -3,7 +3,7 @@ import { toHiragana } from "wanakana";
 
 import css from "./index.module.css";
 import { Button } from "../Button";
-import cards from "../../constants/cards";
+import cards from "../../constants/cards.json";
 
 type Props = {
   selectedCards: string[][];
