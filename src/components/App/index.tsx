@@ -38,7 +38,7 @@ export const App = () => {
         /* ノードの反発 default: 0.1 */
         repulsion: 10,
         /* 中央に集まろうとする力 default: 0.0001 */
-        gravity: 0.0005,
+        gravity: 0.001,
         /* 摩擦 vs 慣性 default: 0.6 */
         inertia: 0.6,
         maxMove: 200,
