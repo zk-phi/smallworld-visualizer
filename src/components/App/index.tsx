@@ -56,7 +56,7 @@ export const App = () => {
         x: Math.random(),
         y: Math.random(),
         label: card[1],
-        color: "#333",
+        color: "#888",
       });
       cards.forEach(existingCard => {
         const prefixes = ["", "", "", "レベル", "", "ATK", "DEF"];
