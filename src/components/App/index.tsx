@@ -4,6 +4,7 @@ import ForceLayout from "graphology-layout-force/worker";
 import Sigma from "sigma";
 import ColorConvert from "color-convert";
 
+import { Card } from "../../types";
 import { RGB2YIQ, YIQ2RGB, rotYIQ } from "../../utils/yiq";
 import css from "./index.module.css";
 import { Header } from "../Header";
@@ -23,7 +24,7 @@ const getColorForRelation = (relation: string) => {
 };
 
 export const App = () => {
-  const [selectedCards, setSelectedCards] = createSignal<string[][]>([]);
+  const [selectedCards, setSelectedCards] = createSignal<Card[]>([]);
 
   let graphContainer: HTMLDivElement | undefined;
   let graph = new Graphology;
@@ -47,7 +48,7 @@ export const App = () => {
     layout.start();
   });
 
-  const onAddCard = (card: string[]) => {
+  const onAddCard = (card: Card) => {
     const cards = selectedCards();
     setSelectedCards([...cards, card]);
     try {

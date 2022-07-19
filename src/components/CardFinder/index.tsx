@@ -1,13 +1,14 @@
 import { createSignal, createMemo, JSX, For, Show } from "solid-js";
 import { toHiragana } from "wanakana";
 
+import { Card } from "../../types";
 import css from "./index.module.css";
 import { Button } from "../Button";
 import cards from "../../constants/cards.json";
 
 type Props = {
-  selectedCards: string[][];
-  onAddCard: (card: string[]) => void;
+  selectedCards: Card[];
+  onAddCard: (card: Card) => void;
 };
 
 export const CardFinder = (props: Props) => {
@@ -20,12 +21,12 @@ export const CardFinder = (props: Props) => {
     return table;
   });
 
-  const filteredCards = createMemo(() => {
+  const filteredCards = createMemo<Card[]>(() => {
     const text = searchText();
     const kana = toHiragana(text, { convertLongVowelMark: false });
 
     if (text === "") return [];
-    return cards.filter(card => card[0].includes(kana) || card[1].includes(text));
+    return (cards as Card[]).filter(card => card[0].includes(kana) || card[1].includes(text));
   });
 
   const onChangeSearchText: JSX.EventHandler<HTMLInputElement, InputEvent> = (e) => {

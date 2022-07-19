@@ -1,24 +1,25 @@
 import { createSignal, createMemo, For, Show } from "solid-js";
 
+import { Card } from "../../types";
 import css from "./index.module.css";
 import { Button } from "../Button";
 import cards from "../../constants/cards.json";
 
 type Props = {
-  selectedCards: string[][];
-  onAddCard: (card: string[]) => void;
+  selectedCards: Card[];
+  onAddCard: (card: Card) => void;
 };
 
 export const JointFinder = (props: Props) => {
-  const [selectedTargets, setSelectedTargets] = createSignal<string[][]>([]);
+  const [selectedTargets, setSelectedTargets] = createSignal<Card[]>([]);
   const [collapsed, setCollapsed] = createSignal(true);
 
-  const filteredCards = createMemo(() => {
+  const filteredCards = createMemo<Card[]>(() => {
     const targets = selectedTargets();
     if (!targets.length) {
       return [];
     }
-    return cards.filter(card => (
+    return (cards as Card[]).filter(card => (
       targets.every(target => (
         target.reduce((acc, _, ix) => acc + (target[ix] === card[ix] ? 1 : 0), 0) === 1
       ))
@@ -37,7 +38,7 @@ export const JointFinder = (props: Props) => {
     return table;
   });
 
-  const onToggleCard = (card: string[]) => {
+  const onToggleCard = (card: Card) => {
     if (targetIsSelected()[card[1]]) {
       setSelectedTargets(targets => targets.filter(target => target[1] !== card[1]));
     } else {
