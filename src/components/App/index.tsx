@@ -4,21 +4,21 @@ import ForceLayout from "graphology-layout-force/worker";
 import Sigma from "sigma";
 import ColorConvert from "color-convert";
 
+import { RGB2YIQ, YIQ2RGB, rotYIQ } from "../../utils/yiq";
 import css from "./index.module.css";
 import { Header } from "../Header";
 import { JointFinder } from "../JointFinder";
 import { CardFinder } from "../CardFinder";
 
 let relationToColor: Record<string, string> = {};
-let lastHue = Math.floor(Math.random() * 360);
+let lastColor = RGB2YIQ([238, 170, 0]);
 const getColorForRelation = (relation: string) => {
   if (relationToColor[relation]) {
     return relationToColor[relation];
   } else {
-    const color = `#${ColorConvert.hsl.hex([lastHue, 100, 50])}`;
-    lastHue += 49;
-    relationToColor[relation] = color;
-    return color;
+    relationToColor[relation] = `#${ColorConvert.rgb.hex(YIQ2RGB(lastColor))}`;
+    lastColor = rotYIQ(lastColor, 49); /* 49 has no common divisor with 360 */
+    return relationToColor[relation];
   }
 };
 
@@ -56,6 +56,7 @@ export const App = () => {
         x: Math.random(),
         y: Math.random(),
         label: card[1],
+        color: "#333",
       });
       cards.forEach(existingCard => {
         const prefixes = ["", "", "", "レベル", "", "ATK", "DEF"];
