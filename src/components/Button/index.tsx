@@ -2,7 +2,7 @@ import css from "./index.module.css";
 
 type Props = {
   children: string;
-  disabled: boolean;
+  disabled?: boolean;
   onClick: () => void;
 };
 
