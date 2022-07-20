@@ -4,6 +4,27 @@
       (push (match-string 0) res))
     res))
 
+(defun simplify-name (name)
+  (with-temp-buffer
+    (save-excursion (insert name))
+    (while (search-forward-regexp "&[a-z]+;" nil t)
+      (let ((match (match-string 0)))
+        (replace-match (cond ((string= match "&Omega;") "Ω")
+                             ((string= match "&Xi;") "Ξ")
+                             ((string= match "&alpha;") "α")
+                             ((string= match "&beta;") "β")
+                             ((string= match "&delta;") "δ")
+                             ((string= match "&epsilon;") "ε")
+                             ((string= match "&forall;") "∀")
+                             ((string= match "&gamma;") "γ")
+                             ((string= match "&infin;") "∞")
+                             ((string= match "&ldquo;") "“")
+                             ((string= match "&rdquo;") "”")
+                             ((string= match "&times;") "×")
+                             ((string= match "&zeta;") "ζ")
+                             (t (error "Unknown escape string %s" match))))))
+    (buffer-string)))
+
 (defun simplify-ruby (ruby)
   (with-temp-buffer
     (save-excursion (insert (japanese-hiragana ruby)))
@@ -45,7 +66,8 @@
                                                                "【\\(.*?\\)族"
                                                                "<span>攻撃力 \\(.*?\\)</span>"
                                                                "<span>守備力 \\(.*?\\)</span>"))))
-                                            (setcar lst (simplify-ruby (car lst)))
+                                            (setf (car lst) (simplify-ruby (car lst)))
+                                            (setf (cadr lst) (simplify-name (cadr lst)))
                                             (apply 'vector lst)))
                                         cards-raw)))
           (setq lst (nconc lst cards-extracted)))))
