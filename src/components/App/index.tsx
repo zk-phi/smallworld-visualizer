@@ -10,6 +10,7 @@ import css from "./index.module.css";
 import { Header } from "../Header";
 import { JointFinder } from "../JointFinder";
 import { CardFinder } from "../CardFinder";
+import { TutorialModal } from "../TutorialModal";
 
 let relationToColor: Record<string, string> = {};
 let lastColor = RGB2YIQ([238, 170, 0]);
@@ -85,6 +86,7 @@ export const App = () => {
         <JointFinder selectedCards={ selectedCards() } onAddCard={ onAddCard } />
         <CardFinder selectedCards={ selectedCards() } onAddCard={ onAddCard } />
       </div>
+      <TutorialModal />
     </div>
   );
 };
