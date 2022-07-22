@@ -1,4 +1,4 @@
-import { createSignal, createMemo, For, Show } from "solid-js";
+import { createSignal, createMemo, createEffect, For, Show } from "solid-js";
 
 import { Card } from "../../types";
 import css from "./index.module.css";
@@ -8,6 +8,7 @@ import cards from "../../constants/cards.json";
 type Props = {
   selectedCards: Card[];
   onAddCard: (card: Card) => void;
+  onDeleteCard: (card: Card) => void;
 };
 
 export const JointFinder = (props: Props) => {
@@ -36,6 +37,12 @@ export const JointFinder = (props: Props) => {
     const table: Record<string, boolean> = {};
     props.selectedCards.forEach(target => table[target[1]] = true);
     return table;
+  });
+
+  /* remove cards from selectedTargets, when they are removed from selectedCards */
+  createEffect(() => {
+    const isSelected = cardIsSelected();
+    setSelectedTargets(targets => targets.filter(target => isSelected[target[1]]));
   });
 
   const onToggleCard = (card: Card) => {
@@ -98,6 +105,12 @@ export const JointFinder = (props: Props) => {
                         disabled={ cardIsSelected()[card[1]] }
                         onClick={ () => props.onAddCard(card) }>
                       追加
+                    </Button>
+                    { " " }
+                    <Button
+                        disabled={ !cardIsSelected()[card[1]] }
+                        onClick={ () => props.onDeleteCard(card) }>
+                      削除
                     </Button>
                   </td>
                 </tr>

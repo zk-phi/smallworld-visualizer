@@ -78,13 +78,24 @@ export const App = () => {
     } catch (e) {}
   };
 
+  const onDeleteCard = (card: Card) => {
+    setSelectedCards(cards => cards.filter(c => c[1] !== card[1]));
+    graph.dropNode(card[1]);
+  };
+
   return (
     <div>
       <Header />
       <div ref={ graphContainer } class={ css.graph }></div>
       <div class={ css.finders }>
-        <JointFinder selectedCards={ selectedCards() } onAddCard={ onAddCard } />
-        <CardFinder selectedCards={ selectedCards() } onAddCard={ onAddCard } />
+        <JointFinder
+            selectedCards={ selectedCards() }
+            onAddCard={ onAddCard }
+            onDeleteCard={ onDeleteCard } />
+        <CardFinder
+            selectedCards={ selectedCards() }
+            onAddCard={ onAddCard }
+            onDeleteCard={ onDeleteCard } />
       </div>
       <TutorialModal />
     </div>

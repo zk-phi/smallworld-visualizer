@@ -9,6 +9,7 @@ import cards from "../../constants/cards.json";
 type Props = {
   selectedCards: Card[];
   onAddCard: (card: Card) => void;
+  onDeleteCard: (card: Card) => void;
 };
 
 export const CardFinder = (props: Props) => {
@@ -60,6 +61,12 @@ export const CardFinder = (props: Props) => {
                         disabled={ cardIsSelected()[card[1]] }
                         onClick={ () => props.onAddCard(card) }>
                       追加
+                    </Button>
+                    { " " }
+                    <Button
+                        disabled={ !cardIsSelected()[card[1]] }
+                        onClick={ () => props.onDeleteCard(card) }>
+                      削除
                     </Button>
                   </td>
                 </tr>
