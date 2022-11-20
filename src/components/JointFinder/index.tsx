@@ -1,4 +1,5 @@
-import { createSignal, createMemo, createEffect, For, Show } from "solid-js";
+import { createSignal, createMemo, createEffect, For, Show, JSX } from "solid-js";
+import { toHiragana } from "wanakana";
 
 import { Card } from "../../types";
 import css from "./index.module.css";
@@ -12,6 +13,7 @@ type Props = {
 };
 
 export const JointFinder = (props: Props) => {
+  const [searchText, setSearchText] = createSignal("");
   const [selectedTargets, setSelectedTargets] = createSignal<Card[]>([]);
   const [collapsed, setCollapsed] = createSignal(true);
 
@@ -25,6 +27,15 @@ export const JointFinder = (props: Props) => {
         target.reduce((acc, _, ix) => acc + (target[ix] === card[ix] ? 1 : 0), 0) === 1
       ))
     ));
+  });
+
+  const matchingCards = createMemo<Card[]>(() => {
+    const text = searchText();
+    const cards = filteredCards();
+    const kana = toHiragana(text, { convertLongVowelMark: false });
+
+    if (text === "") return cards;
+    return cards.filter(card => card[0].includes(kana) || card[1].includes(text))
   });
 
   const targetIsSelected = createMemo(() => {
@@ -45,6 +56,10 @@ export const JointFinder = (props: Props) => {
     setSelectedTargets(targets => targets.filter(target => isSelected[target[1]]));
   });
 
+  const onChangeSearchText: JSX.EventHandler<HTMLInputElement, InputEvent> = (e) => {
+    setSearchText(e.currentTarget.value);
+  };
+
   const onToggleCard = (card: Card) => {
     if (targetIsSelected()[card[1]]) {
       setSelectedTargets(targets => targets.filter(target => target[1] !== card[1]));
@@ -57,9 +72,12 @@ export const JointFinder = (props: Props) => {
     <tr><td rowSpan={ 7 }>(「カード名から検索」でカードを登録してください)</td></tr>
   );
 
-  const filteredEmptyState = (
-    <tr><td rowSpan={ 7 }>(中継できるカードはありません)</td></tr>
-  );
+  const filteredEmptyState = createMemo(() => {
+    if (selectedTargets().length === 0) {
+      return <tr><td rowSpan={ 7 }>(中継したいカードを選択してください)</td></tr>;
+    }
+    return <tr><td rowSpan={ 7 }>(中継できるカードはありません)</td></tr>;
+  });
 
   return (
     <div class={ css.finder }>
@@ -90,8 +108,11 @@ export const JointFinder = (props: Props) => {
             </For>
           </table>
           候補：
+          <Show when={ filteredCards().length > 0 }>
+            <input value={ searchText() } onInput={ onChangeSearchText } />
+          </Show>
           <table>
-            <For each={ filteredCards() } fallback={ filteredEmptyState }>
+            <For each={ matchingCards() } fallback={ filteredEmptyState }>
               { card => (
                 <tr>
                   <td>{ card[1] }</td>
