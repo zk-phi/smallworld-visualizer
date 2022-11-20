@@ -2,12 +2,29 @@
 <html lang="ja">
 
   <head>
-    <title>スモワのカンペ</title>
+    <title>スモワのカンペ - スモールワールド検索ツール</title>
     <meta name="description" content="スモール・ワールドの検索＆関係図可視化ツール" />
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <style>body { margin: 0; }</style>
+    <style>
+body { margin: 0; }
+
+header {
+  padding-left: 8px;
+  font-size: 16px;
+  line-height: 32px;
+  background-color: #ea0;
+  color: white;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: bold;
+}
+    </style>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js"></script>
     <script>
@@ -19,6 +36,9 @@ gtag('config', 'G-12Y2QBF8TV');
   </head>
 
   <body>
+    <header>
+      <h1>スモワのカンペ - スモールワールド検索ツール <small>by zk-phi</small></h1>
+    </header>
     <div id="solidapp"></div>
     <script src="./main.ts" type="module"></script>
   </body>

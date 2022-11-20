@@ -7,7 +7,6 @@ import ColorConvert from "color-convert";
 import { Card } from "../../types";
 import { RGB2YIQ, YIQ2RGB, rotYIQ } from "../../utils/yiq";
 import css from "./index.module.css";
-import { Header } from "../Header";
 import { JointFinder } from "../JointFinder";
 import { CardFinder } from "../CardFinder";
 import { TutorialModal } from "../TutorialModal";
@@ -85,7 +84,6 @@ export const App = () => {
 
   return (
     <div>
-      <Header />
       <div ref={ graphContainer } class={ css.graph }></div>
       <div class={ css.finders }>
         <JointFinder
