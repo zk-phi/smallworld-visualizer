@@ -9,6 +9,7 @@ import { RGB2YIQ, YIQ2RGB, rotYIQ } from "../../utils/yiq";
 import css from "./index.module.css";
 import { JointFinder } from "../JointFinder";
 import { CardFinder } from "../CardFinder";
+import { StorageManager } from "../StorageManager";
 import { TutorialModal } from "../TutorialModal";
 
 let relationToColor: Record<string, string> = {};
@@ -91,6 +92,10 @@ export const App = () => {
             onAddCard={ onAddCard }
             onDeleteCard={ onDeleteCard } />
         <CardFinder
+            selectedCards={ selectedCards() }
+            onAddCard={ onAddCard }
+            onDeleteCard={ onDeleteCard } />
+        <StorageManager
             selectedCards={ selectedCards() }
             onAddCard={ onAddCard }
             onDeleteCard={ onDeleteCard } />
