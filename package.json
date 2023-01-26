@@ -19,7 +19,7 @@
   "devDependencies": {
     "typescript": "^4.7.4",
     "vite": "^3.0.0",
-    "vite-plugin-checker": "^0.4.9",
+    "vite-plugin-checker": "^0.5.5",
     "vite-plugin-solid": "^2.3.0"
   }
 }
