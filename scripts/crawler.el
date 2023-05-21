@@ -1,3 +1,5 @@
+(defconst num-pages 64)
+
 (defun search-regex-all (regex)
   (let (res)
     (while (search-forward-regexp regex nil t)
@@ -31,8 +33,6 @@
     (save-excursion (replace-regexp "[　・－-]\\|&.*;" ""))
     (save-excursion (replace-string "う゛" "ゔ"))
     (buffer-string)))
-
-(defconst num-pages 62)
 
 (defun crawl ()
   (let (lst)
@@ -73,7 +73,9 @@
           (setq lst (nconc lst cards-extracted)))))
     (with-temp-buffer
       (insert (json-encode lst))
-      (write-file "./cards.json"))))
+      (write-file "../src/constants/cards.json"))))
+
+;; (crawl)
 
 ;; -------------------------------------------
 
