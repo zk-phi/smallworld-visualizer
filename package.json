@@ -9,7 +9,7 @@
     "@types/css-modules": "^1.0.2",
     "@types/events": "^3.0.0",
     "@types/node": "^18.0.5",
-    "color-convert": "^1.9.3",
+    "color-convert": "^2.0.1",
     "graphology": "^0.24.1",
     "graphology-layout-force": "^0.2.4",
     "sigma": "^2.3.1",
